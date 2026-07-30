@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "mkdevforge-agents",
+  "version": "0.1.0",
+  "description": "AI skills and tools from mkdevforge.",
+  "metadata": {
+    "version": "0.1.0",
+    "description": "AI skills and tools from mkdevforge."
+  },
+  "owner": {
+    "name": "mkdevforge",
+    "url": "https://github.com/mkdevforge"
+  },
+  "plugins": [
+    {
+      "name": "ste-writing",
+      "description": "Rewrite technical prose in ASD-STE100 Simplified Technical English.",
+      "version": "0.1.0",
+      "author": {
+        "name": "mkdevforge"
+      },
+      "source": "./plugins/ste-writing",
+      "category": "productivity",
+      "tags": [
+        "writing",
+        "documentation",
+        "ste"
+      ]
+    }
+  ]
+}

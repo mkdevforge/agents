@@ -1,0 +1,32 @@
+{
+  "name": "ste-writing",
+  "version": "0.1.0",
+  "description": "Rewrite technical prose in ASD-STE100 Simplified Technical English.",
+  "author": {
+    "name": "mkdevforge",
+    "url": "https://github.com/mkdevforge"
+  },
+  "homepage": "https://github.com/mkdevforge/agents",
+  "repository": "https://github.com/mkdevforge/agents",
+  "keywords": [
+    "writing",
+    "documentation",
+    "simplified-technical-english"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "STE Writing",
+    "shortDescription": "Rewrite technical prose in controlled English",
+    "longDescription": "Rewrite documentation and other technical prose with strict or STE-flavored ASD-STE100 rules.",
+    "developerName": "mkdevforge",
+    "category": "Productivity",
+    "capabilities": [
+      "Write"
+    ],
+    "websiteURL": "https://github.com/mkdevforge/agents",
+    "defaultPrompt": [
+      "Rewrite this text in strict Simplified Technical English.",
+      "Rewrite this README in a clear, controlled style."
+    ]
+  }
+}
