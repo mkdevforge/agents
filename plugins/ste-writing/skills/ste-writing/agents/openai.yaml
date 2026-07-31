@@ -1,4 +1,4 @@
 interface:
   display_name: "STE Writing"
-  short_description: "Rewrite technical prose in controlled English"
-  default_prompt: "Use $ste-writing to rewrite this text in clear technical English."
+  short_description: "Control docs, commits, and PR writing"
+  default_prompt: "Use $ste-writing to rewrite this documentation, commit, or PR text in controlled English."

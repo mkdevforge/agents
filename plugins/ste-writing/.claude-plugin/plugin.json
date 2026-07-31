@@ -1,7 +1,7 @@
 {
   "name": "ste-writing",
-  "version": "0.1.0",
-  "description": "Rewrite technical prose in ASD-STE100 Simplified Technical English.",
+  "version": "0.2.0",
+  "description": "Rewrite documentation, commits, and pull requests in ASD-STE100 Simplified Technical English.",
   "author": {
     "name": "mkdevforge",
     "url": "https://github.com/mkdevforge"

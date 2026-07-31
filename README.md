@@ -6,7 +6,7 @@ This repository contains AI skills and tools from mkdevforge. The same plugin fi
 
 | Plugin | Purpose |
 | --- | --- |
-| `ste-writing` | Rewrite technical prose with strict or STE-flavored ASD-STE100 rules. |
+| `ste-writing` | Control documentation, commit messages, and pull-request text with ASD-STE100 rules. |
 
 ## Install for Codex
 

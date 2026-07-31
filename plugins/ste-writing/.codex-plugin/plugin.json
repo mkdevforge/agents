@@ -1,7 +1,7 @@
 {
   "name": "ste-writing",
-  "version": "0.1.0",
-  "description": "Rewrite technical prose in ASD-STE100 Simplified Technical English.",
+  "version": "0.2.0",
+  "description": "Rewrite documentation, commits, and pull requests in ASD-STE100 Simplified Technical English.",
   "author": {
     "name": "mkdevforge",
     "url": "https://github.com/mkdevforge"
@@ -16,8 +16,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "STE Writing",
-    "shortDescription": "Rewrite technical prose in controlled English",
-    "longDescription": "Rewrite documentation and other technical prose with strict or STE-flavored ASD-STE100 rules.",
+    "shortDescription": "Control docs, commits, and PR writing",
+    "longDescription": "Rewrite documentation, commit messages, and pull-request text with strict or STE-flavored ASD-STE100 rules.",
     "developerName": "mkdevforge",
     "category": "Productivity",
     "capabilities": [
@@ -26,7 +26,8 @@
     "websiteURL": "https://github.com/mkdevforge/agents",
     "defaultPrompt": [
       "Rewrite this text in strict Simplified Technical English.",
-      "Rewrite this README in a clear, controlled style."
+      "Rewrite this README in a clear, controlled style.",
+      "Write a clear commit message and pull-request description."
     ]
   }
 }
