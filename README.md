@@ -1,12 +1,13 @@
 # agents
 
-This repository contains AI skills and tools from mkdevforge. The same plugin files support Codex and Claude Code.
+This repository contains AI skills and tools from mkdevforge. Plugins support Codex and Claude Code where their host capabilities permit it.
 
 ## Plugins
 
 | Plugin | Purpose |
 | --- | --- |
 | `ste-writing` | Control documentation, commit messages, and pull-request text with ASD-STE100 rules. |
+| `session-handoff` | Continue a Claude Code session through a Codex-generated checkpoint. |
 
 ## Install for Codex
 
@@ -29,6 +30,32 @@ claude plugin install ste-writing@mkdevforge-agents
 ```
 
 Invoke the skill with `/ste-writing:ste-writing`, or ask Claude to rewrite technical prose clearly.
+
+### Session handoff
+
+The handoff skill requires Node.js 20 or later and an authenticated Codex CLI. Install the marketplace plugin to use its namespaced command.
+
+```powershell
+claude plugin install session-handoff@mkdevforge-agents
+```
+
+```text
+/session-handoff:session-handoff
+```
+
+For the shorter `/session-handoff` command, link the repository skill into the personal Claude skills directory.
+
+```powershell
+.\scripts\install-session-handoff.ps1
+```
+
+Create a checkpoint in the established session. Open a fresh Claude Code chat or run `/clear`. Invoke the same command again to restore and continue.
+
+```text
+/session-handoff
+```
+
+The skill stores checkpoints under `~/.agent-handoffs/session-handoff`. It does not change the source transcript or the project.
 
 ## Test a local checkout
 

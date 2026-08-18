@@ -1,0 +1,17 @@
+{
+  "name": "session-handoff",
+  "version": "0.1.0",
+  "description": "Move a Claude Code session through a Codex-generated checkpoint.",
+  "author": {
+    "name": "mkdevforge",
+    "url": "https://github.com/mkdevforge"
+  },
+  "homepage": "https://github.com/mkdevforge/agents",
+  "repository": "https://github.com/mkdevforge/agents",
+  "keywords": [
+    "session",
+    "handoff",
+    "compaction",
+    "codex"
+  ]
+}
