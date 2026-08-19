@@ -16,23 +16,9 @@ The first invocation creates a pending checkpoint. The second invocation detects
 
 ## Selection
 
-The default `auto` action creates a checkpoint when the current transcript has conversation history. It restores the latest checkpoint for the current working directory when the current session is fresh.
+The command has no arguments. It creates a checkpoint when the current transcript has conversation history and restores the latest checkpoint for the current working directory when the current session is fresh. Session IDs and handoff IDs are diagnostic output, not user input.
 
-Explicit actions are available for recovery.
-
-```text
-/session-handoff create
-/session-handoff restore
-/session-handoff refresh
-```
-
-Pass a source session ID after `restore` to recover a specific older checkpoint when needed.
-
-```text
-/session-handoff restore <source-session-id>
-```
-
-`refresh` regenerates a checkpoint for the source session. The generator reuses an existing checkpoint for repeated `create` calls.
+Repeated calls in the source session reuse its checkpoint when the transcript has not changed.
 
 ## Models
 

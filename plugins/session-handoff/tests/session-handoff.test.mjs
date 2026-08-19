@@ -234,9 +234,7 @@ test("the CLI runs when the skill directory is reached through a junction", (t) 
     [
       path.join(linkedSkill, "scripts", "session-handoff.mjs"),
       "--session-id", "fresh-session",
-      "--cwd", f.cwd,
-      "--action", "auto",
-      "--source", ""
+      "--cwd", f.cwd
     ],
     {
       encoding: "utf8",

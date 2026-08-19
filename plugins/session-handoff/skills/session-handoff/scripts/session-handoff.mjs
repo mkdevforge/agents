@@ -131,7 +131,7 @@ function errorResult(error) {
   return {
     mode: "error",
     error: error.message,
-    recovery: "Resume the source session and invoke /session-handoff create, or restore a known pending handoff with /session-handoff restore."
+    recovery: "Return to an established source session and invoke /session-handoff. Then run /clear and invoke /session-handoff again."
   };
 }
 

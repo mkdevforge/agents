@@ -1,10 +1,10 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "mkdevforge-agents",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "AI skills and tools from mkdevforge.",
   "metadata": {
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "AI skills and tools from mkdevforge."
   },
   "owner": {
@@ -30,7 +30,7 @@
     {
       "name": "session-handoff",
       "description": "Continue a Claude Code session through a Codex-generated checkpoint.",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "author": {
         "name": "mkdevforge"
       },
