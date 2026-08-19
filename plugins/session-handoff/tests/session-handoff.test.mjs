@@ -223,6 +223,16 @@ test("Windows extended paths normalize to ordinary paths", () => {
   assert.equal(normalizePath("\\\\?\\C:\\Users\\Mikae\\repo"), normalizePath("C:\\Users\\Mikae\\repo"));
 });
 
+test("the restore instruction loads state without continuing work", () => {
+  const skill = fs.readFileSync(
+    path.resolve(import.meta.dirname, "..", "skills", "session-handoff", "SKILL.md"),
+    "utf8"
+  );
+  const restoreInstruction = skill.split(/\r?\n/).find((line) => line.startsWith("- For `restored`"));
+  assert.match(restoreInstruction, /confirm that the handoff state is loaded, then stop/i);
+  assert.match(restoreInstruction, /Do not revalidate state, call tools, inspect files, mutate anything, or continue/i);
+});
+
 test("the CLI runs when the skill directory is reached through a junction", (t) => {
   const f = fixture();
   t.after(() => fs.rmSync(f.root, { recursive: true, force: true }));

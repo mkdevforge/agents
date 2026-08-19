@@ -49,7 +49,7 @@ For the shorter `/session-handoff` command, link the repository skill into the p
 .\scripts\install-session-handoff.ps1
 ```
 
-Create a checkpoint in the established session. Open a fresh Claude Code chat or run `/clear`. Invoke the same command again to restore and continue.
+Create a checkpoint in the established session. Open a fresh Claude Code chat or run `/clear`. Invoke the same command again to restore the state. The restored session confirms that it is ready and waits for the next user message.
 
 ```text
 /session-handoff

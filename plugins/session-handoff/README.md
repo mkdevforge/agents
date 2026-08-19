@@ -12,7 +12,7 @@ Run the skill in the established session.
 
 Open a fresh Claude Code chat or run `/clear`. Run the same skill again.
 
-The first invocation creates a pending checkpoint. The second invocation detects the fresh session, restores the checkpoint, revalidates volatile state, and continues the substantive task.
+The first invocation creates a pending checkpoint. The second invocation detects the fresh session, restores the checkpoint, confirms that the state is loaded, and stops. The user's next message decides when work continues.
 
 ## Selection
 
