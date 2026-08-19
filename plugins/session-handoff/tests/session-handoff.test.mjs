@@ -246,5 +246,7 @@ test("the CLI runs when the skill directory is reached through a junction", (t) 
     }
   );
   assert.equal(result.status, 0, result.stderr);
-  assert.equal(JSON.parse(result.stdout).mode, "error");
+  const output = JSON.parse(result.stdout);
+  assert.equal(output.mode, "error");
+  assert.doesNotMatch(output.recovery, /session[- ]id|handoff[- ]id|\/session-handoff restore/i);
 });
