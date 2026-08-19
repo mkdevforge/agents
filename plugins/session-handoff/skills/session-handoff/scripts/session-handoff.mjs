@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { generateCodexCheckpoint } from "./lib/codex-checkpoint.mjs";
-import { handoffRoot, readLatest, writeHandoff } from "./lib/state.mjs";
+import { handoffRoot, readHandoffBySource, readLatest, writeHandoff } from "./lib/state.mjs";
 import { claudeProjectsRoot, findTranscript, inspectTranscript, normalizePath } from "./lib/transcripts.mjs";
 
 function parseArgs(argv) {
@@ -83,11 +83,12 @@ export async function runHandoff(options, dependencies = {}) {
   let pending = readLatest(options.cwd, stateRoot);
 
   if (options.action === "restore") {
-    if (!pending) {
-      throw new Error("No pending handoff exists for this working directory.");
+    if (options.source) {
+      pending = readHandoffBySource(options.cwd, options.source, stateRoot);
     }
-    if (options.source && pending.manifest.sourceSessionId !== options.source) {
-      throw new Error(`The pending handoff belongs to ${pending.manifest.sourceSessionId}, not ${options.source}.`);
+    if (!pending) {
+      const qualifier = options.source ? ` for source session ${options.source}` : "";
+      throw new Error(`No pending handoff exists${qualifier} for this working directory.`);
     }
     return restoredResult(pending);
   }

@@ -53,6 +53,11 @@ function textBlocks(message) {
     .map((block) => block.text);
 }
 
+function isLocalCommandBookkeeping(text) {
+  const trimmed = text.trimStart();
+  return trimmed.startsWith("<local-command-caveat>") || trimmed.startsWith("<command-name>");
+}
+
 export function inspectTranscript(file) {
   const result = {
     path: file,
@@ -78,7 +83,9 @@ export function inspectTranscript(file) {
       result.title = record.customTitle ?? record.title ?? result.title;
     }
     if (record.type === "user" && record.message?.role === "user") {
-      const texts = textBlocks(record.message).filter((text) => text.trim());
+      const texts = textBlocks(record.message).filter(
+        (text) => text.trim() && !isLocalCommandBookkeeping(text)
+      );
       result.userTextMessages += texts.length;
     }
     if (record.type === "assistant" && record.message?.role === "assistant") {

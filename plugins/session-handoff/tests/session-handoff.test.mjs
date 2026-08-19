@@ -92,6 +92,61 @@ test("a fresh session restores the pending checkpoint", async (t) => {
   assert.equal(calls.count, 1);
 });
 
+test("a session created by /clear ignores local-command bookkeeping and restores", async (t) => {
+  const f = fixture();
+  t.after(() => fs.rmSync(f.root, { recursive: true, force: true }));
+  writeTranscript(f.projectsRoot, "source-session", f.cwd);
+  writeTranscript(f.projectsRoot, "cleared-session", f.cwd, [
+    { type: "mode", sessionId: "cleared-session" },
+    {
+      type: "user",
+      cwd: f.cwd,
+      sessionId: "cleared-session",
+      message: {
+        role: "user",
+        content: "<local-command-caveat>Caveat: local command bookkeeping.</local-command-caveat>"
+      }
+    },
+    {
+      type: "user",
+      cwd: f.cwd,
+      sessionId: "cleared-session",
+      message: {
+        role: "user",
+        content: "<command-name>/clear</command-name>\n<command-message>clear</command-message>\n<command-args></command-args>"
+      }
+    },
+    { type: "system", subtype: "local_command", cwd: f.cwd, sessionId: "cleared-session" }
+  ]);
+  const calls = { count: 0 };
+  const deps = { projectsRoot: f.projectsRoot, stateRoot: f.stateRoot, generateCheckpoint: generator(calls) };
+  await runHandoff({ action: "auto", source: null, sessionId: "source-session", cwd: f.cwd }, deps);
+  const result = await runHandoff(
+    { action: "auto", source: null, sessionId: "cleared-session", cwd: f.cwd },
+    deps
+  );
+  assert.equal(result.mode, "restored");
+  assert.equal(result.source.session_id, "source-session");
+  assert.equal(calls.count, 1);
+});
+
+test("explicit restore selects an older handoff by source session", async (t) => {
+  const f = fixture();
+  t.after(() => fs.rmSync(f.root, { recursive: true, force: true }));
+  writeTranscript(f.projectsRoot, "original-session", f.cwd);
+  writeTranscript(f.projectsRoot, "newer-session", f.cwd);
+  const calls = { count: 0 };
+  const deps = { projectsRoot: f.projectsRoot, stateRoot: f.stateRoot, generateCheckpoint: generator(calls) };
+  await runHandoff({ action: "create", source: null, sessionId: "original-session", cwd: f.cwd }, deps);
+  await runHandoff({ action: "create", source: null, sessionId: "newer-session", cwd: f.cwd }, deps);
+  const result = await runHandoff(
+    { action: "restore", source: "original-session", sessionId: "fresh-session", cwd: f.cwd },
+    deps
+  );
+  assert.equal(result.mode, "restored");
+  assert.equal(result.source.session_id, "original-session");
+});
+
 test("repeating create in the source session reuses the checkpoint", async (t) => {
   const f = fixture();
   t.after(() => fs.rmSync(f.root, { recursive: true, force: true }));

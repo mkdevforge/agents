@@ -26,6 +26,12 @@ Explicit actions are available for recovery.
 /session-handoff refresh
 ```
 
+Pass a source session ID after `restore` to recover a specific older checkpoint when needed.
+
+```text
+/session-handoff restore <source-session-id>
+```
+
 `refresh` regenerates a checkpoint for the source session. The generator reuses an existing checkpoint for repeated `create` calls.
 
 ## Models

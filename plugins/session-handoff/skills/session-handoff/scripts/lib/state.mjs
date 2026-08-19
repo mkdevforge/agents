@@ -34,6 +34,43 @@ export function readLatest(cwd, root = handoffRoot()) {
   };
 }
 
+export function readHandoffBySource(cwd, sourceSessionId, root = handoffRoot()) {
+  const projectDir = projectDirectory(cwd, root);
+  const handoffsDir = path.join(projectDir, "handoffs");
+  if (!fs.existsSync(handoffsDir)) {
+    return null;
+  }
+
+  const candidates = fs.readdirSync(handoffsDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .flatMap((entry) => {
+      const manifestPath = path.join(handoffsDir, entry.name, "manifest.json");
+      if (!fs.existsSync(manifestPath)) {
+        return [];
+      }
+      const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+      return manifest.sourceSessionId === sourceSessionId ? [{ manifest, manifestPath }] : [];
+    })
+    .sort((left, right) => Date.parse(right.manifest.createdAt) - Date.parse(left.manifest.createdAt));
+
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  const { manifest, manifestPath } = candidates[0];
+  const checkpointPath = path.resolve(projectDir, manifest.checkpointFile);
+  if (!fs.existsSync(checkpointPath)) {
+    throw new Error(`Handoff checkpoint is missing: ${checkpointPath}`);
+  }
+  return {
+    manifest,
+    checkpoint: JSON.parse(fs.readFileSync(checkpointPath, "utf8")),
+    latestPath: path.join(projectDir, "latest.json"),
+    checkpointPath,
+    manifestPath
+  };
+}
+
 function writeJsonAtomic(file, value) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   const temporary = `${file}.${process.pid}.${Date.now()}.tmp`;
