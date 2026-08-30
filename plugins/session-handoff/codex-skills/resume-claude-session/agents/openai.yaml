@@ -1,0 +1,6 @@
+interface:
+  display_name: "Resume Claude Session"
+  short_description: "Restore a local Claude session in Codex"
+  default_prompt: "Use $resume-claude-session latest to load my latest Claude session and stop."
+policy:
+  allow_implicit_invocation: false

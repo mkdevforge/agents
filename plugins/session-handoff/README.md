@@ -1,6 +1,6 @@
 # session-handoff
 
-`session-handoff` creates a portable checkpoint from a local Claude Code transcript. Codex reads the transcript and Luna produces the checkpoint. A second invocation in a fresh session injects that checkpoint into Fable.
+`session-handoff` creates a portable checkpoint from a local Claude Code transcript. Codex reads the transcript and Luna produces the checkpoint. Claude can restore a pending checkpoint after `/clear`, and Codex can select and restore a Claude session directly.
 
 ## Workflow
 
@@ -20,9 +20,20 @@ The command has no arguments. It creates a checkpoint when the current transcrip
 
 Repeated calls in the source session reuse its checkpoint when the transcript has not changed.
 
+## Resume in Codex
+
+Invoke the explicit-only Codex skill with `latest`, an exact Claude session ID, or a natural-language description.
+
+```text
+$resume-claude-session latest
+$resume-claude-session the Claude session where we investigated the login issue
+```
+
+Natural-language selection searches top-level Claude sessions and excludes subagent logs. Weak or ambiguous matches fail and report candidates instead of guessing. The restored Codex task confirms that the checkpoint is loaded and stops until the user's next message.
+
 ## Models
 
-Direct synthesis uses `gpt-5.6-luna` with `xhigh` effort. The generator measures the imported Codex thread. When the thread exceeds 72 percent of the model context window, it uses Codex native compaction and renders the portable checkpoint with `gpt-5.6-terra` at `max` effort.
+Claude-to-Claude handoff synthesis uses `gpt-5.6-luna` with `xhigh` effort. Codex restore uses Luna at `max` effort. The generator measures the imported Codex thread. When the thread exceeds 72 percent of the model context window, it uses Codex native compaction and renders the portable checkpoint with `gpt-5.6-terra` at `max` effort.
 
 Set these environment variables to override the defaults:
 
@@ -36,4 +47,4 @@ Set these environment variables to override the defaults:
 
 ## Safety
 
-The plugin does not use hooks. It does not edit Claude JSONL transcripts. It stores checkpoints outside the project and uses atomic writes. Source selection requires the same normalized working directory. A fresh session without a pending checkpoint fails closed.
+The plugin does not use hooks or edit the source transcript. During synthesis it creates a temporary UUID-named transcript copy beside the source so Codex can detect a fresh import, then removes the copy in `finally`. It stores checkpoints outside the project and uses atomic writes. Claude-to-Claude restoration requires the same normalized working directory. Codex description matching fails closed when the result is weak or ambiguous.

@@ -7,7 +7,7 @@ This repository contains AI skills and tools from mkdevforge. Plugins support Co
 | Plugin | Purpose |
 | --- | --- |
 | `ste-writing` | Control documentation, commit messages, and pull-request text with ASD-STE100 rules. |
-| `session-handoff` | Continue a Claude Code session through a Codex-generated checkpoint. |
+| `session-handoff` | Continue Claude Code work in Claude or Codex through a Codex-generated checkpoint. |
 
 ## Install for Codex
 
@@ -56,6 +56,26 @@ Create a checkpoint in the established session. Open a fresh Claude Code chat or
 ```
 
 The skill stores checkpoints under `~/.agent-handoffs/session-handoff`. It does not change the source transcript or the project.
+
+### Resume Claude work in Codex
+
+Install the repo-backed user skill, then start a new Codex task. The skill is explicit-only.
+
+```bash
+./scripts/install-resume-claude-session.sh
+```
+
+```text
+$resume-claude-session latest
+```
+
+You can also select a session by topic or exact Claude session ID.
+
+```text
+$resume-claude-session the Claude session where we designed the Kinde login screen
+```
+
+The skill loads the checkpoint and stops. Send a new message when you want Codex to continue the work.
 
 ## Test a local checkout
 
