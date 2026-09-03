@@ -1,0 +1,29 @@
+{
+  "name": "microskill-creator",
+  "version": "0.1.0",
+  "description": "Create focused repo-local skills that encode one repeatable behavior.",
+  "author": {
+    "name": "mkdevforge",
+    "url": "https://github.com/mkdevforge"
+  },
+  "homepage": "https://github.com/mkdevforge/agents",
+  "repository": "https://github.com/mkdevforge/agents",
+  "keywords": [
+    "skills",
+    "repositories",
+    "monorepos"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Microskill Creator",
+    "shortDescription": "Create focused repo-local skills",
+    "longDescription": "Create or revise a small skill that adds one repeatable behavior to a repository or monorepo project.",
+    "developerName": "mkdevforge",
+    "category": "Productivity",
+    "capabilities": [
+      "Write"
+    ],
+    "websiteURL": "https://github.com/mkdevforge/agents",
+    "defaultPrompt": "Create a microskill for this repository."
+  }
+}
