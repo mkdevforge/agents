@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Microskill"
+  short_description: "Create one focused repo-local skill"
+  default_prompt: "Use $create-microskill to create a focused skill for this repository."
